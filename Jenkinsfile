@@ -31,10 +31,10 @@ pipeline {
             steps {
                 sshagent(['bf3b89fe-f9bc-46f0-9f69-fe239759eed7']) {
                     sh """
-                    ssh -o StrictHostKeyChecking=no ubuntu@3.147.69.45 << EOF
+                    ssh -o StrictHostKeyChecking=no ubuntu@${DEPLOY_HOST} << EOF
                       docker stop nodejs-app || true
                       docker rm nodejs-app || true
-                      docker run -d -p 3000:3000 --name nodejs-app nodejs-cicd-app:latest
+                      docker run -d -p 3000:3000 --name nodejs-app ${IMAGE_NAME}:${IMAGE_TAG}
                     EOF
                     """
                 }
