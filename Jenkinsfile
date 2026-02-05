@@ -8,7 +8,7 @@ pipeline {
     environment {
         IMAGE_NAME = "nodejs-cicd-app"
         IMAGE_TAG  = "latest"
-        DEPLOY_HOST = "<DEPLOYMENT_PUBLIC_IP>"
+        DEPLOY_HOST = "3.147.69.45"
     }
 
     stages {
@@ -39,9 +39,9 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['deployment-ssh']) {
+                sshagent(['bf3b89fe-f9bc-46f0-9f69-fe239759eed7']) {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_HOST << EOF
+                    ssh -o StrictHostKeyChecking=no ubuntu@$3.147.69.45 << EOF
                       docker stop nodejs-app || true
                       docker rm nodejs-app || true
                       docker run -d -p 3000:3000 --name nodejs-app $IMAGE_NAME:$IMAGE_TAG
